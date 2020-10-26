@@ -1,0 +1,107 @@
+@import '~antd/lib/style/themes/default.less';
+
+.page-basic {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: center;
+  justify-content: center;
+  min-height: 100%;
+}
+
+.page-main {
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+.page-header {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+}
+
+.header-brand {
+  color: inherit;
+  margin-right: 1rem;
+  font-size: 1.25rem;
+  white-space: nowrap;
+  font-weight: 600;
+  padding: 0;
+  transition: 0.3s opacity;
+  line-height: 2rem;
+}
+
+.header-brand-img {
+  height: 2rem;
+  line-height: 2rem;
+  vertical-align: bottom;
+  margin-right: 0.5rem;
+  width: auto;
+}
+
+img {
+  max-width: 100%;
+}
+
+img {
+  vertical-align: middle;
+  border-style: none;
+}
+
+.container {
+  width: 100%;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 576px) {
+  .container {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    max-width: 960px;
+  }
+}
+@media (min-width: 1366px) {
+  .container {
+    max-width: 1366px;
+  }
+}
+
+.page-header-menu {
+  padding: 0 !important;
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+}
+
+.menu-input-container {
+  margin: auto;
+}
+
+.page-content {
+  margin-top: 1.5rem !important;
+}
+
+.page-footer {
+  background: #fff;
+  border-top: 1px solid rgba(0, 40, 100, 0.12);
+  font-size: 0.875rem;
+  padding: 1.25rem 0;
+  color: #9aa0ac;
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+}

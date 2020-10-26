@@ -3,171 +3,92 @@
  * You can view component api by:
  * https://github.com/ant-design/ant-design-pro-layout
  */
-import ProLayout, {
-  MenuDataItem,
-  BasicLayoutProps as ProLayoutProps,
-  Settings,
-  DefaultFooter,
-} from '@ant-design/pro-layout';
-import React, { useEffect, useMemo, useRef } from 'react';
-import { Link, useIntl, connect, Dispatch, history } from 'umi';
-import { GithubOutlined } from '@ant-design/icons';
-import { Result, Button } from 'antd';
-import Authorized from '@/utils/Authorized';
-import RightContent from '@/components/GlobalHeader/RightContent';
+import React from 'react';
+import { Row, Col } from 'antd';
+import { connect } from 'umi';
 import { ConnectState } from '@/models/connect';
-import { getMatchMenu } from '@umijs/route-utils';
-import logo from '../assets/logo.svg';
+import styles from './BasicLayout.less';
+import { Menu } from 'antd';
+import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
+const { Search } = Input;
 
-const noMatch = (
-  <Result
-    status={403}
-    title="403"
-    subTitle="Sorry, you are not authorized to access this page."
-    extra={
-      <Button type="primary">
-        <Link to="/user/login">Go Login</Link>
-      </Button>
-    }
-  />
-);
-export interface BasicLayoutProps extends ProLayoutProps {
-  breadcrumbNameMap: {
-    [path: string]: MenuDataItem;
-  };
-  route: ProLayoutProps['route'] & {
-    authority: string[];
-  };
-  settings: Settings;
-  dispatch: Dispatch;
-}
-export type BasicLayoutContext = { [K in 'location']: BasicLayoutProps[K] } & {
-  breadcrumbNameMap: {
-    [path: string]: MenuDataItem;
-  };
-};
-/**
- * use Authorized check all menu item
- */
+const { SubMenu } = Menu;
 
-const menuDataRender = (menuList: MenuDataItem[]): MenuDataItem[] =>
-  menuList.map((item) => {
-    const localItem = {
-      ...item,
-      children: item.children ? menuDataRender(item.children) : undefined,
-    };
-    return Authorized.check(item.authority, localItem, null) as MenuDataItem;
-  });
+// const noMatch = (
+//   <Result
+//     status={403}
+//     title="403"
+//     subTitle="Sorry, you are not authorized to access this page."
+//     extra={
+//       <Button type="primary">
+//         <Link to="/user/login">Go Login</Link>
+//       </Button>
+//     }
+//   />
+// );
 
-const defaultFooterDom = (
-  <DefaultFooter
-    copyright={`${new Date().getFullYear()} 蚂蚁集团体验技术部出品`}
-    links={[
-      {
-        key: 'Ant Design Pro',
-        title: 'Ant Design Pro',
-        href: 'https://pro.ant.design',
-        blankTarget: true,
-      },
-      {
-        key: 'github',
-        title: <GithubOutlined />,
-        href: 'https://github.com/ant-design/ant-design-pro',
-        blankTarget: true,
-      },
-      {
-        key: 'Ant Design',
-        title: 'Ant Design',
-        href: 'https://ant.design',
-        blankTarget: true,
-      },
-    ]}
-  />
-);
-
-const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
-  const {
-    dispatch,
-    children,
-    settings,
-    location = {
-      pathname: '/',
-    },
-  } = props;
-
-  const menuDataRef = useRef<MenuDataItem[]>([]);
-
-  useEffect(() => {
-    if (dispatch) {
-      dispatch({
-        type: 'user/fetchCurrent',
-      });
-    }
-  }, []);
-  /**
-   * init variables
-   */
-
-  const handleMenuCollapse = (payload: boolean): void => {
-    if (dispatch) {
-      dispatch({
-        type: 'global/changeLayoutCollapsed',
-        payload,
-      });
-    }
-  };
-  // get children authority
-  const authorized = useMemo(
-    () =>
-      getMatchMenu(location.pathname || '/', menuDataRef.current).pop() || {
-        authority: undefined,
-      },
-    [location.pathname],
-  );
-
-  const { formatMessage } = useIntl();
-
+const BasicLayout: React.FC<{}> = (props) => {
   return (
-    <ProLayout
-      logo={logo}
-      formatMessage={formatMessage}
-      onCollapse={handleMenuCollapse}
-      onMenuHeaderClick={() => history.push('/')}
-      menuItemRender={(menuItemProps, defaultDom) => {
-        if (menuItemProps.isUrl || !menuItemProps.path) {
-          return defaultDom;
-        }
-        return <Link to={menuItemProps.path}>{defaultDom}</Link>;
-      }}
-      breadcrumbRender={(routers = []) => [
-        {
-          path: '/',
-          breadcrumbName: formatMessage({ id: 'menu.home' }),
-        },
-        ...routers,
-      ]}
-      itemRender={(route, params, routes, paths) => {
-        const first = routes.indexOf(route) === 0;
-        return first ? (
-          <Link to={paths.join('/')}>{route.breadcrumbName}</Link>
-        ) : (
-          <span>{route.breadcrumbName}</span>
-        );
-      }}
-      footerRender={() => defaultFooterDom}
-      menuDataRender={menuDataRender}
-      rightContentRender={() => <RightContent />}
-      postMenuData={(menuData) => {
-        menuDataRef.current = menuData || [];
-        return menuData || [];
-      }}
-      {...props}
-      {...settings}
-    >
-      <Authorized authority={authorized!.authority} noMatch={noMatch}>
-        {children}
-      </Authorized>
-    </ProLayout>
+    <div className={styles['page-basic']}>
+      <div className={styles['page-main']}>
+        <div className={styles['page-header']}>
+          <div className={styles['container']}>
+            <div className="d-flex">
+              <a className={styles['header-brand']}>
+                <img
+                  src={require('../assets/logo.svg')}
+                  className={styles['header-brand-img']}
+                  alt=""
+                />
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className={styles['page-header-menu']}>
+          <div className={styles['container']}>
+            <div className="align-items-center">
+              <Row>
+                <Col span={18}>
+                  <Menu mode="horizontal">
+                    <Menu.Item key="mail" icon={<MailOutlined />}>
+                      Navigation One
+                    </Menu.Item>
+                    <Menu.Item key="app" disabled icon={<AppstoreOutlined />}>
+                      Navigation Two
+                    </Menu.Item>
+                    <SubMenu
+                      key="SubMenu"
+                      icon={<SettingOutlined />}
+                      title="Navigation Three - Submenu"
+                    >
+                      <Menu.ItemGroup title="Item 1">
+                        <Menu.Item key="setting:1">Option 1</Menu.Item>
+                        <Menu.Item key="setting:2">Option 2</Menu.Item>
+                      </Menu.ItemGroup>
+                      <Menu.ItemGroup title="Item 2">
+                        <Menu.Item key="setting:3">Option 3</Menu.Item>
+                        <Menu.Item key="setting:4">Option 4</Menu.Item>
+                      </Menu.ItemGroup>
+                    </SubMenu>
+                    <Menu.Item key="alipay">
+                      <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
+                        Navigation Four - Link
+                      </a>
+                    </Menu.Item>
+                  </Menu>
+                </Col>
+                <Col span={6} className={styles['menu-input-container']}>
+                  <Search placeholder="input search text" allowClear enterButton="Search" />
+                </Col>
+              </Row>
+            </div>
+          </div>
+        </div>
+        <div className={styles['page-content']}></div>
+      </div>
+      <footer className={styles['page-footer']}></footer>
+    </div>
   );
 };
 
