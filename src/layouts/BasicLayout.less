@@ -1,6 +1,6 @@
 @import '~antd/lib/style/themes/default.less';
 
-.page-basic {
+.pageBasic {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-direction: column;
@@ -10,19 +10,19 @@
   min-height: 100%;
 }
 
-.page-main {
+.pageMain {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
 }
 
-.page-header {
+.pageHeader {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   background: #fff;
   border-bottom: 1px solid rgba(0, 40, 100, 0.12);
 }
 
-.header-brand {
+.headerBrand {
   color: inherit;
   margin-right: 1rem;
   font-size: 1.25rem;
@@ -33,7 +33,7 @@
   line-height: 2rem;
 }
 
-.header-brand-img {
+.headerBrandImg {
   height: 2rem;
   line-height: 2rem;
   vertical-align: bottom;
@@ -80,22 +80,27 @@ img {
     max-width: 1366px;
   }
 }
+@media (min-width: 1680px) {
+  .container {
+    max-width: 1480px;
+  }
+}
 
-.page-header-menu {
+.pageHeaderMenu {
   padding: 0 !important;
   background: #fff;
   border-bottom: 1px solid rgba(0, 40, 100, 0.12);
 }
 
-.menu-input-container {
+.menuInputContainer {
   margin: auto;
 }
 
-.page-content {
+.pageContent {
   margin-top: 1.5rem !important;
 }
 
-.page-footer {
+.pageFooter {
   background: #fff;
   border-top: 1px solid rgba(0, 40, 100, 0.12);
   font-size: 0.875rem;
@@ -104,4 +109,31 @@ img {
   position: sticky;
   bottom: 0;
   width: 100%;
+}
+
+.customMenuStyle {
+    :global {
+        .ant-menu, .ant-menu-horizontal > .ant-menu-item a {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            color: #9aa0ac;
+        }
+        .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-item, .ant-menu-horizontal:not(.ant-menu-dark) > .ant-menu-submenu {
+            padding: 0 4px 0 0;
+        }
+    }
+}
+
+.subMenuClassName {
+    :global {
+        .ant-menu {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            color: #6e7687;
+        }
+    }
 }

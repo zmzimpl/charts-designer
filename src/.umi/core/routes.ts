@@ -20,6 +20,18 @@ export function getRoutes() {
     ]
   },
   {
+    "path": "/designer",
+    "component": dynamic({ loader: () => import(/* webpackChunkName: 'layouts__DesignerLayout' */'F:/Project-React/charts-designer/src/layouts/DesignerLayout'), loading: LoadingComponent}),
+    "routes": [
+      {
+        "name": "编辑器",
+        "path": "/operator",
+        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__designer__operator__designer-operator' */'F:/Project-React/charts-designer/src/pages/designer/operator/designer-operator'), loading: LoadingComponent}),
+        "exact": true
+      }
+    ]
+  },
+  {
     "path": "/",
     "component": dynamic({ loader: () => import(/* webpackChunkName: 'layouts__SecurityLayout' */'F:/Project-React/charts-designer/src/layouts/SecurityLayout'), loading: LoadingComponent}),
     "routes": [

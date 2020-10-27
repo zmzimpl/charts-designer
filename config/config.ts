@@ -38,6 +38,17 @@ export default defineConfig({
       ],
     },
     {
+      path: '/designer',
+      component: '../layouts/DesignerLayout',
+      routes: [
+        {
+          name: '编辑器',
+          path: '/operator',
+          component: './designer/operator/designer-operator'
+        }
+      ]
+    },
+    {
       path: '/',
       component: '../layouts/SecurityLayout',
       routes: [
