@@ -24,10 +24,10 @@ export function getRoutes() {
     "component": dynamic({ loader: () => import(/* webpackChunkName: 'layouts__DesignerLayout' */'F:/Project-React/charts-designer/src/layouts/DesignerLayout'), loading: LoadingComponent}),
     "routes": [
       {
-        "name": "编辑器",
-        "path": "/operator",
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__designer__operator__designer-operator' */'F:/Project-React/charts-designer/src/pages/designer/operator/designer-operator'), loading: LoadingComponent}),
-        "exact": true
+        "name": "operate",
+        "path": "/operate",
+        "exact": true,
+        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__designer__operate' */'F:/Project-React/charts-designer/src/pages/designer/operate'), loading: LoadingComponent})
       }
     ]
   },

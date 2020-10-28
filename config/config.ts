@@ -42,10 +42,16 @@ export default defineConfig({
       component: '../layouts/DesignerLayout',
       routes: [
         {
-          name: '编辑器',
-          path: '/operator',
-          component: './designer/operator/designer-operator'
-        }
+          name: 'operate',
+          path: '/operate',
+          exact: true,
+          component: './designer/operate'
+        },
+        // {
+        //   name: '预览',
+        //   path: '/view',
+        //   component: './designer/viewer'
+        // },
       ]
     },
     {

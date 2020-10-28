@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'umi';
-import { ConnectState } from '@/models/connect';
 
 
 class DesignerLayout extends React.Component<{}> {
@@ -13,11 +11,13 @@ class DesignerLayout extends React.Component<{}> {
   
     render() {
       const { children } = this.props;
-      return children;
+      console.log(children);
+      return (
+        <div>
+          {children}
+        </div>
+      );
     }
   }
 
-export default connect(({ user, loading }: ConnectState) => ({
-    currentUser: user.currentUser,
-    loading: loading.models.user,
-  }))(DesignerLayout);
+export default DesignerLayout;

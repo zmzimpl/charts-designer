@@ -11,6 +11,7 @@ const { Search } = Input;
 const { SubMenu } = Menu;
 
 const BasicLayout: React.FC<{}> = (props) => {
+  console.log(props.children);
   return (
     <div className={styles.pageBasic}>
       <div className={styles.pageMain}>
@@ -68,7 +69,9 @@ const BasicLayout: React.FC<{}> = (props) => {
             </div>
           </div>
         </div>
-        <div className={styles.pageContent}></div>
+        <div className={styles.pageContent}>
+          {props.children}
+        </div>
       </div>
       <footer className={styles.pageFooter}></footer>
     </div>
@@ -76,6 +79,5 @@ const BasicLayout: React.FC<{}> = (props) => {
 };
 
 export default connect(({ global, settings }: ConnectState) => ({
-  collapsed: global.collapsed,
   settings,
 }))(BasicLayout);
