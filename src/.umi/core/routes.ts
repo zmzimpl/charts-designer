@@ -25,9 +25,9 @@ export function getRoutes() {
     "routes": [
       {
         "name": "operate",
-        "path": "/operate",
-        "exact": true,
-        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__designer__operate' */'F:/Project-React/charts-designer/src/pages/designer/operate'), loading: LoadingComponent})
+        "path": "/designer/operate",
+        "component": dynamic({ loader: () => import(/* webpackChunkName: 'p__designer__operate' */'F:/Project-React/charts-designer/src/pages/designer/operate'), loading: LoadingComponent}),
+        "exact": true
       }
     ]
   },

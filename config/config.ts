@@ -43,8 +43,7 @@ export default defineConfig({
       routes: [
         {
           name: 'operate',
-          path: '/operate',
-          exact: true,
+          path: '/designer/operate',
           component: './designer/operate'
         },
         // {
