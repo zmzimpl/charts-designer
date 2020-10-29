@@ -5,8 +5,8 @@
 /.pnp
 .pnp.js
 
-# cache
-# .umi
+# umi
+.umi
 
 # testing
 /coverage
