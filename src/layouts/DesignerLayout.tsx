@@ -1,23 +1,9 @@
 import React from 'react';
 
+import styles from './DesignerLayout.less';
 
-class DesignerLayout extends React.Component<{}> {
-  
-    componentDidMount() {
-      this.setState({
-        isReady: true,
-      });
-    }
-  
-    render() {
-      const { children } = this.props;
-      console.log(children);
-      return (
-        <div>
-          {children}
-        </div>
-      );
-    }
-  }
+const DesignerLayout: React.FC<{}> = (props) => {
+  return <div className={styles.designerContainer}>{props.children}</div>;
+};
 
 export default DesignerLayout;

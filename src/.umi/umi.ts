@@ -1,6 +1,5 @@
 // @ts-nocheck
 import './core/polyfill';
-import '@@/core/devScripts';
 import '../global.tsx';
 import { plugin } from './core/plugin';
 import './core/pluginRegister';

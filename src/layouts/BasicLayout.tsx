@@ -1,17 +1,19 @@
 import React from 'react';
-import { Row, Col } from 'antd';
 import { connect } from 'umi';
 import { ConnectState } from '@/models/connect';
-import styles from './BasicLayout.less';
-import { Menu } from 'antd';
 import { BarChartOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-import { Input } from 'antd';
+import Menu from 'antd/lib/menu';
+import { Row, Col } from 'antd/lib/grid';
+import Input from 'antd/lib/input';
+import styles from './BasicLayout.less';
+
 const { Search } = Input;
 
 const { SubMenu } = Menu;
 
+const logo = require('../assets/logo.svg');
+
 const BasicLayout: React.FC<{}> = (props) => {
-  console.log(props.children);
   return (
     <div className={styles.pageBasic}>
       <div className={styles.pageMain}>
@@ -19,11 +21,7 @@ const BasicLayout: React.FC<{}> = (props) => {
           <div className={styles.container}>
             <div className="d-flex">
               <a className={styles.headerBrand}>
-                <img
-                  src={require('../assets/logo.svg')}
-                  className={styles.headerBrandImg}
-                  alt=""
-                />
+                <img src={logo} className={styles.headerBrandImg} alt="" />
               </a>
             </div>
           </div>
@@ -33,7 +31,7 @@ const BasicLayout: React.FC<{}> = (props) => {
             <div className="align-items-center">
               <Row>
                 <Col span={18} className={styles.customMenuStyle}>
-                  <Menu mode="horizontal" >
+                  <Menu mode="horizontal">
                     <Menu.Item key="chartTpl" icon={<BarChartOutlined />}>
                       图表样板
                     </Menu.Item>
@@ -63,21 +61,19 @@ const BasicLayout: React.FC<{}> = (props) => {
                   </Menu>
                 </Col>
                 <Col span={6} className={styles.menuInputContainer}>
-                  <Search placeholder="查找样板" allowClear  />
+                  <Search placeholder="查找样板" allowClear />
                 </Col>
               </Row>
             </div>
           </div>
         </div>
-        <div className={styles.pageContent}>
-          {props.children}
-        </div>
+        <div className={styles.pageContent}>{props.children}</div>
       </div>
-      <footer className={styles.pageFooter}></footer>
+      <footer className={styles.pageFooter} />
     </div>
   );
 };
 
-export default connect(({ global, settings }: ConnectState) => ({
+export default connect(({ settings }: ConnectState) => ({
   settings,
 }))(BasicLayout);
