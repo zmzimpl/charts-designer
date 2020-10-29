@@ -6,7 +6,7 @@
 .pnp.js
 
 # cache
-# /src/.umi/.cache
+# .umi
 
 # testing
 /coverage
