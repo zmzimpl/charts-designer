@@ -1,7 +1,7 @@
 import React from 'react';
 
-const SiderBar: React.FC<{}> = () => {
-  return <div>SiderBar</div>;
+const Siderbar: React.FC<{}> = () => {
+  return <div>siderbar</div>;
 };
 
-export default SiderBar;
+export default Siderbar;

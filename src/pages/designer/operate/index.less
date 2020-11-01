@@ -1,3 +1,43 @@
 .operateContainer {
   height: 100%;
 }
+
+.mzSiderbar {
+  position: fixed;
+  z-index: 999;
+  width: 50px;
+  height: calc(100% - 37px);
+  border-right: 1px solid rgba(0, 40, 100, 0.12);
+}
+
+.mzToolbar {
+  box-sizing: border-box;
+  height: 37px;
+  padding: 0;
+  color: #323b47;
+  background: 0 0;
+  border-bottom: 1px solid rgba(0, 40, 100, 0.12);
+  box-shadow: 0 -40px 10px 0 rgba(215, 215, 215, 0.5);
+}
+
+.mzMainContainer {
+  float: right;
+  width: calc(100% - 50px);
+  height: calc(100% - 37px);
+}
+
+.mzDesignBoard {
+  position: relative;
+  float: left;
+  width: calc(100% - 280px);
+  height: 100%;
+  background: white;
+}
+
+.mzDesignSetting {
+  position: relative;
+  float: right;
+  width: 280px;
+  height: 100%;
+  border-left: 1px solid rgba(0, 40, 100, 0.12);
+}

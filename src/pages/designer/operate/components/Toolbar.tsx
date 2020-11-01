@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Toolbar: React.FC<{}> = () => {
-  return <div>Toolbar</div>;
+  return <div>toolbar</div>;
 };
 
 export default Toolbar;
