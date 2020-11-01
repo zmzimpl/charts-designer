@@ -54,7 +54,7 @@ const BasicLayout: React.FC<{}> = (props) => {
                       </Menu.ItemGroup>
                     </SubMenu>
                     <Menu.Item key="designer">
-                      <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
+                      <a href="./designer/operate" target="_blank" rel="noopener noreferrer">
                         报告设计
                       </a>
                     </Menu.Item>
