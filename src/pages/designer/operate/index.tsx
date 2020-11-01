@@ -4,6 +4,7 @@ import Toolbar from './components/Toolbar';
 import Siderbar from './components/Siderbar';
 import ItemSetting from './components/ItemSetting';
 import DataBinding from './components/DataBinding';
+import DesignBoard from './components/DesignBoard';
 import styles from './index.less';
 
 const PanelOperate: React.FC<{}> = () => {
@@ -16,7 +17,9 @@ const PanelOperate: React.FC<{}> = () => {
         <Siderbar />
       </div>
       <div className={styles.mzMainContainer}>
-        <div className={styles.mzDesignBoard} />
+        <div className={styles.mzDesignBoard}>
+          <DesignBoard />
+        </div>
         <div className={styles.mzDesignSetting}>
           <GlobalSetting />
           <ItemSetting />
