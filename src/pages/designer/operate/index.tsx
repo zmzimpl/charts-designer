@@ -1,6 +1,6 @@
 import React from 'react';
 import GlobalSetting from './components/GlobalSetting';
-import Toolbar from './components/Toolbar';
+import Header from './components/Header';
 import Siderbar from './components/Siderbar';
 import ItemSetting from './components/ItemSetting';
 import DataBinding from './components/DataBinding';
@@ -11,7 +11,7 @@ const PanelOperate: React.FC<{}> = () => {
   return (
     <div className={styles.operateContainer}>
       <div className={styles.mzToolbar}>
-        <Toolbar />
+        <Header />
       </div>
       <div className={`${styles.mzSiderbar} fixed`}>
         <Siderbar />
