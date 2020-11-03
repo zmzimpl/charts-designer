@@ -21,6 +21,7 @@ const PanelOperate: React.FC<{}> = () => {
           <DesignBoard />
         </div>
         <div className={styles.mzDesignSetting}>
+          <div className={styles.mzDesignSettingHeader} />
           <GlobalSetting />
           <ItemSetting />
           <DataBinding />
