@@ -1,6 +1,6 @@
 import React from 'react';
 import { Radio } from 'antd';
-import { DatabaseOutlined, GlobalOutlined, SettingOutlined } from '@ant-design/icons';
+import { DatabaseOutlined, GoldOutlined, SettingOutlined } from '@ant-design/icons';
 import GlobalSetting from './components/GlobalSetting';
 import Header from './components/Header';
 import Siderbar from './components/Siderbar';
@@ -22,6 +22,14 @@ export class PanelOperate extends React.Component {
 
   render() {
     const { currentSetting } = this.state;
+    let setting;
+    if (currentSetting === 'Global') {
+      setting = <GlobalSetting />;
+    } else if (currentSetting === 'Data') {
+      setting = <DataBinding />;
+    } else if (currentSetting === 'Item') {
+      setting = <ItemSetting />;
+    }
     return (
       <div className={styles.operateContainer}>
         <div className={styles.mzToolbar}>
@@ -41,22 +49,19 @@ export class PanelOperate extends React.Component {
                 value={currentSetting}
                 onChange={this.setCurrentSetting}
                 optionType="button"
-                buttonStyle="solid"
               >
-                <Radio.Button value="Global">
-                  <GlobalOutlined /> Global
+                <Radio.Button value="Global" >
+                  <GoldOutlined title="Global Setting" /> { currentSetting === 'Global' ? 'Global Setting' : '' }
                 </Radio.Button>
                 <Radio.Button value="Data">
-                  <DatabaseOutlined /> Data
+                  <DatabaseOutlined title="Data Binding" /> { currentSetting === 'Data' ? 'Data Binding' : '' }
                 </Radio.Button>
                 <Radio.Button value="Item">
-                  <SettingOutlined /> Item
+                  <SettingOutlined title="Item Setting" /> { currentSetting === 'Item' ? 'Item Setting' : '' }
                 </Radio.Button>
               </Radio.Group>
             </div>
-            <GlobalSetting />
-            <ItemSetting />
-            <DataBinding />
+            { setting }
           </div>
         </div>
       </div>

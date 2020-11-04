@@ -50,10 +50,31 @@
 }
 
 .mzDesignSettingHeader {
-  width: 100%;
+  width: 279px;
   height: 40px;
   color: #467fcf;
-  line-height: 40px;
   text-align: center;
   background-color: rgba(70, 127, 207, 0.06);
+
+  :global {
+    .ant-radio-group {
+      height: 40px;
+    }
+    .ant-radio-button-wrapper {
+      height: 40px;
+      line-height: 40px;
+      border: none !important;
+      background-color: transparent;
+      padding: 0 24px;
+    }
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+      background-color: #fff;
+    }
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus-within {
+      box-shadow: unset;
+    }
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled)::before, .ant-radio-button-wrapper:not(:first-child)::before {
+      background-color: unset;
+    }
+  }
 }
