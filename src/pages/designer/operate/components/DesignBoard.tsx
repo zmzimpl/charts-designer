@@ -1,11 +1,42 @@
 import React from 'react';
 
-import { Drawer, Button } from 'antd';
-
+import { Drawer } from 'antd';
+import { PubSub } from '@/core/pubsub/pubsub';
+import { DesignTopics } from '@/core/pubsub/Topics';
+import {  DoubleLeftOutlined } from '@ant-design/icons';
 import styles from './DesignBoard.less';
 
 class DesignBoard extends React.Component {
-  state = { visible: false };
+
+  constructor(props: any) {
+    super(props);
+    PubSub.subscribe(DesignTopics.widgetDrawerVisible, (data) => {
+      if (!this.state.visible) {
+        this.setState({
+          visible: true,
+          widget: data.widget
+        })
+      } else if (data.widget.type === this.state.widget.type) {
+          this.setState({ visible: false});
+        } else {
+          this.setState({
+            widget: data.widget
+          });
+        }
+    });
+  }
+
+  componentWillUnmount() {
+    PubSub.unsubscribe(DesignTopics.widgetDrawerVisible);
+  }
+
+  state = { 
+    visible: false,
+    widget: {
+      type: 'chart',
+      name: 'Chart'
+    }
+  };
 
   showDrawer = () => {
     this.setState({
@@ -13,27 +44,31 @@ class DesignBoard extends React.Component {
     });
   };
 
-  onClose = () => {
+  closeDrawer = () => {
     this.setState({
       visible: false,
     });
   };
 
   render() {
+    const drawerTitle = (
+      <div>
+        Choose a {this.state.widget.name} 
+        <DoubleLeftOutlined className={`${styles.mzDesignBoardMenu  } pointer`} onClick={this.closeDrawer} />
+      </div>
+      )
     return (
-      <div style={{ width: this.state.visible ? 'calc(100% - 256px)' : '100%', float: 'right' }}>
+      <div className={styles.mzDesignBoard} style={{ width: this.state.visible ? 'calc(100% - 256px)' : '100%' }}>
         <div className={styles.mzDesignBoardToolbar}>Toolbar</div>
-        <div style={{ marginTop: 16 }}>
-          <Button type="primary" onClick={this.showDrawer}>
-            Open
-          </Button>
+        <div className={styles.mzDesignBoardArea}>
+          1
         </div>
         <Drawer
-          title="Basic Drawer"
+          title={drawerTitle}
           placement="left"
           closable={false}
           mask={false}
-          onClose={this.onClose}
+          onClose={this.closeDrawer}
           visible={this.state.visible}
           getContainer={false}
           style={{ position: 'absolute' }}

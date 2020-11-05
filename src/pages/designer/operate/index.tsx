@@ -2,11 +2,11 @@ import React from 'react';
 import { Radio } from 'antd';
 import { DatabaseOutlined, GoldOutlined, SettingOutlined } from '@ant-design/icons';
 import GlobalSetting from './components/GlobalSetting';
-import Header from './components/Header';
-import Siderbar from './components/Siderbar';
 import ItemSetting from './components/ItemSetting';
 import DataBinding from './components/DataBinding';
 import DesignBoard from './components/DesignBoard';
+import Header from './components/Header';
+import Siderbar from './components/Siderbar';
 import styles from './index.less';
 
 export class PanelOperate extends React.Component {
