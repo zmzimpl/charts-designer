@@ -1,80 +1,108 @@
-import React from "react";
+import React from 'react';
 import { fabric } from 'fabric';
 
 import styles from './GridCanvas.less';
 
-
 export class GridCanvas extends React.Component {
+  gridCanvas!: fabric.Canvas;
 
-    gridCanvas!: fabric.Canvas;
+  componentDidMount() {
+    this.initCanvas();
+    this.initListener();
+    this.drawGrid();
+    this.drawWidget();
 
-    componentDidMount() {
-        const canvas = new fabric.Canvas('grid-canvas', { selection: false });
-        const grid = 50;
 
-        // create grid
+    onresize = () => {
+        this.resizeCanvas();
+    }
+  }
 
-        for (var i = 0; i < (600 / grid); i++) {
-            canvas.add(new fabric.Line([ i * grid, 0, i * grid, 600], { stroke: '#ccc', selectable: false }));
-            canvas.add(new fabric.Line([ 0, i * grid, 600, i * grid], { stroke: '#ccc', selectable: false }))
+  initCanvas() {
+    const container: HTMLDivElement = document.getElementById('grid-container') as HTMLDivElement;
+    const canvas = new fabric.Canvas('grid-canvas', {
+        selection: false,
+        height: container.clientHeight,
+        width: container.clientWidth,
+    });
+    this.gridCanvas = canvas;
+  }
+
+  drawGrid() {
+    const container: HTMLDivElement = document.getElementById('grid-container') as HTMLDivElement;
+    const options = {
+        distance: 10,
+        width: container.clientWidth,
+        height: container.clientHeight,
+        param: {
+          stroke: '#ebebeb',
+          strokeWidth: 1,
+          selectable: false,
+        },
+      };
+      if (options) {
+        const gridLen = options.width / options.distance;
+  
+        for (var i = 0; i < gridLen; i++) {
+          const distance = i * options.distance,
+            horizontal = new fabric.Line([distance, 0, distance, options.width], options.param),
+            vertical = new fabric.Line([0, distance, options.width, distance], options.param);
+          this.gridCanvas.add(horizontal);
+          this.gridCanvas.add(vertical);
+          if (i % 5 === 0) {
+            horizontal.set({ stroke: '#cccccc' });
+            vertical.set({ stroke: '#cccccc' });
+          }
         }
+      }
+  }
 
-        // add objects
+  drawWidget() {
+    this.gridCanvas.add(new fabric.Rect({
+        left: 100,
+        top: 100,
+        width: 50,
+        height: 50,
+        fill: '#faa',
+        originX: 'left',
+        originY: 'top',
+        centeredRotation: true
+    }));
+    this.gridCanvas.add(new fabric.Circle({
+        left: 300,
+        top: 300,
+        radius: 50,
+        fill: '#9f9',
+        originX: 'left',
+        originY: 'top',
+        centeredRotation: true
+    }));
+  }
 
-        canvas.add(new fabric.Rect({ 
-            left: 100, 
-            top: 100, 
-            width: 50, 
-            height: 50, 
-            fill: '#faa', 
-            originX: 'left', 
-            originY: 'top',
-            centeredRotation: true
-        }));
+  initListener() {
+    this.gridCanvas.on('object:moving', (options) => {
+        if (options?.target) {
+            options.target.set({
+                left: Math.round((options.target.left || 0) / 10) * 10,
+                top: Math.round((options.target.top || 0) / 10) * 10
+            });
+        }
+    });
+  }
 
-        canvas.add(new fabric.Circle({ 
-            left: 300, 
-            top: 300, 
-            radius: 50, 
-            fill: '#9f9', 
-            originX: 'left', 
-            originY: 'top',
-            centeredRotation: true
-        }));
+  resizeCanvas() {
+      setTimeout(() => {
+        //   this.drawGrid();
+      }, 66);
+  }
 
-        // snap to grid
-
-        canvas.on('object:moving', (options) => { 
-            if (options?.target) {
-                options.target.set({
-                    left: Math.round((options.target.left || 0) / grid) * grid,
-                    top: Math.round((options.target.top || 0) / grid) * grid
-                });
-            }
-        });
-        this.gridCanvas = canvas;
-    }
-
-    // resizeCanvas() {
-    //     const outerCanvasContainer = $('.fabric-canvas-wrapper')[0];
-        
-    //     const ratio = canvas.getWidth() / canvas.getHeight();
-    //     const containerWidth   = outerCanvasContainer.clientWidth;
-    //     const containerHeight  = outerCanvasContainer.clientHeight;
-    
-    //     const scale = containerWidth / canvas.getWidth();
-    //     const zoom  = canvas.getZoom() * scale;
-    //     canvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
-    //     canvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
-    // }
-
-    render() {
-        return (
-            <div className={styles.canvasContainer}>
-                <canvas id="grid-canvas" className={styles.canvasWrapper} width="600" height="600"></canvas>
-            </div>
-        )
-    }
+  render() {
+    return (
+      <div className={styles.canvasContainer} id="grid-container">
+        <canvas id="grid-canvas" className={styles.canvasWrapper}></canvas>
+      </div>
+    );
+  }
 }
 
 export default GridCanvas;
