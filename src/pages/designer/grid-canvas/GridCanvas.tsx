@@ -6,6 +6,8 @@ import styles from './GridCanvas.less';
 
 export class GridCanvas extends React.Component {
 
+    gridCanvas!: fabric.Canvas;
+
     componentDidMount() {
         const canvas = new fabric.Canvas('grid-canvas', { selection: false });
         const grid = 50;
@@ -50,11 +52,27 @@ export class GridCanvas extends React.Component {
                 });
             }
         });
+        this.gridCanvas = canvas;
     }
+
+    // resizeCanvas() {
+    //     const outerCanvasContainer = $('.fabric-canvas-wrapper')[0];
+        
+    //     const ratio = canvas.getWidth() / canvas.getHeight();
+    //     const containerWidth   = outerCanvasContainer.clientWidth;
+    //     const containerHeight  = outerCanvasContainer.clientHeight;
+    
+    //     const scale = containerWidth / canvas.getWidth();
+    //     const zoom  = canvas.getZoom() * scale;
+    //     canvas.setDimensions({width: containerWidth, height: containerWidth / ratio});
+    //     canvas.setViewportTransform([zoom, 0, 0, zoom, 0, 0]);
+    // }
 
     render() {
         return (
-            <canvas id="grid-canvas" className={styles.canvasWrapper} width="600" height="600"></canvas>
+            <div className={styles.canvasContainer}>
+                <canvas id="grid-canvas" className={styles.canvasWrapper} width="600" height="600"></canvas>
+            </div>
         )
     }
 }
