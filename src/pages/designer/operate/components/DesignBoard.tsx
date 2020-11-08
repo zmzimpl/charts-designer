@@ -4,6 +4,7 @@ import { Drawer } from 'antd';
 import { PubSub } from '@/core/pubsub/pubsub';
 import { DesignTopics } from '@/core/pubsub/Topics';
 import {  DoubleLeftOutlined } from '@ant-design/icons';
+import GridCanvas from '../../grid-canvas/GridCanvas';
 import styles from './DesignBoard.less';
 
 class DesignBoard extends React.Component {
@@ -61,7 +62,7 @@ class DesignBoard extends React.Component {
       <div className={styles.mzDesignBoard} style={{ width: this.state.visible ? 'calc(100% - 256px)' : '100%' }}>
         <div className={styles.mzDesignBoardToolbar}>Toolbar</div>
         <div className={styles.mzDesignBoardArea}>
-          1
+          <GridCanvas />
         </div>
         <Drawer
           title={drawerTitle}
