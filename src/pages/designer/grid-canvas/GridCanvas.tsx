@@ -58,16 +58,16 @@ export class GridCanvas extends React.Component {
   }
 
   drawWidget() {
-    this.gridCanvas.add(new fabric.Rect({
-        left: 100,
-        top: 100,
-        width: 50,
-        height: 50,
-        fill: '#faa',
-        originX: 'left',
-        originY: 'top',
-        centeredRotation: true
-    }));
+    // this.gridCanvas.add(new fabric.Rect({
+    //     left: 100,
+    //     top: 100,
+    //     width: 50,
+    //     height: 50,
+    //     fill: '#faa',
+    //     originX: 'left',
+    //     originY: 'top',
+    //     centeredRotation: true
+    // }));
     this.gridCanvas.add(new fabric.Circle({
         left: 300,
         top: 300,
