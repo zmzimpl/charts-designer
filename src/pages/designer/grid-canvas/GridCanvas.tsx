@@ -1,108 +1,67 @@
-import React from 'react';
-import { fabric } from 'fabric';
+import React from "react";
+import _ from "lodash";
+import RGL, { WidthProvider } from "react-grid-layout";
+import { MzSafeAny } from "@/models/basic/custom-type";
 
-import styles from './GridCanvas.less';
+const ReactGridLayout = WidthProvider(RGL);
 
 export class GridCanvas extends React.Component {
-  gridCanvas!: fabric.Canvas;
-
-  componentDidMount() {
-    this.initCanvas();
-    this.initListener();
-    this.drawGrid();
-    this.drawWidget();
-
-
-    onresize = () => {
-        this.resizeCanvas();
-    }
-  }
-
-  initCanvas() {
-    const container: HTMLDivElement = document.getElementById('grid-container') as HTMLDivElement;
-    const canvas = new fabric.Canvas('grid-canvas', {
-        selection: false,
-        height: container.clientHeight,
-        width: container.clientWidth,
-    });
-    this.gridCanvas = canvas;
-  }
-
-  drawGrid() {
-    const container: HTMLDivElement = document.getElementById('grid-container') as HTMLDivElement;
-    const options = {
-        distance: 10,
-        width: container.clientWidth,
-        height: container.clientHeight,
-        param: {
-          stroke: '#ebebeb',
-          strokeWidth: 1,
-          selectable: false,
-        },
+    static defaultProps = {
+        className: "layout",
+        items: 50,
+        cols: 12,
+        rowHeight: 30,
+        onLayoutChange: function() {},
+        // This turns off compaction so you can place items wherever.
+        verticalCompact: false
       };
-      if (options) {
-        const gridLen = options.width / options.distance;
-  
-        for (var i = 0; i < gridLen; i++) {
-          const distance = i * options.distance,
-            horizontal = new fabric.Line([distance, 0, distance, options.width], options.param),
-            vertical = new fabric.Line([0, distance, options.width, distance], options.param);
-          this.gridCanvas.add(horizontal);
-          this.gridCanvas.add(vertical);
-          if (i % 5 === 0) {
-            horizontal.set({ stroke: '#cccccc' });
-            vertical.set({ stroke: '#cccccc' });
-          }
-        }
+    
+      constructor(props: MzSafeAny) {
+        super(props);
+    
+        const layout = this.generateLayout();
+        this.state = { layout };
       }
-  }
-
-  drawWidget() {
-    // this.gridCanvas.add(new fabric.Rect({
-    //     left: 100,
-    //     top: 100,
-    //     width: 50,
-    //     height: 50,
-    //     fill: '#faa',
-    //     originX: 'left',
-    //     originY: 'top',
-    //     centeredRotation: true
-    // }));
-    this.gridCanvas.add(new fabric.Circle({
-        left: 300,
-        top: 300,
-        radius: 50,
-        fill: '#9f9',
-        originX: 'left',
-        originY: 'top',
-        centeredRotation: true
-    }));
-  }
-
-  initListener() {
-    this.gridCanvas.on('object:moving', (options) => {
-        if (options?.target) {
-            options.target.set({
-                left: Math.round((options.target.left || 0) / 10) * 10,
-                top: Math.round((options.target.top || 0) / 10) * 10
-            });
-        }
-    });
-  }
-
-  resizeCanvas() {
-      setTimeout(() => {
-        //   this.drawGrid();
-      }, 66);
-  }
-
-  render() {
-    return (
-      <div className={styles.canvasContainer} id="grid-container">
-        <canvas id="grid-canvas" className={styles.canvasWrapper}></canvas>
-      </div>
-    );
-  }
+    
+      generateDOM() {
+        return _.map(_.range(this.props.items), function(i) {
+          return (
+            <div key={i}>
+              <span className="text">{i}</span>
+            </div>
+          );
+        });
+      }
+    
+      generateLayout() {
+        const p = this.props;
+        return _.map(new Array(p.items), function(item, i) {
+          const y = _.result(p, "y") || Math.ceil(Math.random() * 4) + 1;
+          return {
+            x: (i * 2) % 12,
+            y: Math.floor(i / 6) * y,
+            w: 2,
+            h: y,
+            i: i.toString()
+          };
+        });
+      }
+    
+      onLayoutChange(layout: MzSafeAny) {
+        this.props.onLayoutChange(layout);
+      }
+    
+      render() {
+        return (
+          <ReactGridLayout
+            layout={this.state.layout}
+            onLayoutChange={this.onLayoutChange}
+            {...this.props}
+          >
+            {this.generateDOM()}
+          </ReactGridLayout>
+        );
+      }
 }
 
 export default GridCanvas;
