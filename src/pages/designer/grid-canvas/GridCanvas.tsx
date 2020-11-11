@@ -5,7 +5,7 @@ import { MzSafeAny } from "@/models/basic/custom-type";
 
 const ReactGridLayout = WidthProvider(RGL);
 
-export class GridCanvas extends React.Component {
+export class GridCanvas extends React.Component<{}> {
     static defaultProps = {
         className: "layout",
         items: 50,
@@ -24,7 +24,7 @@ export class GridCanvas extends React.Component {
       }
     
       generateDOM() {
-        return _.map(_.range(this.props.items), function(i) {
+        return _.map(_.range(this.props.items), (i) => {
           return (
             <div key={i}>
               <span className="text">{i}</span>
