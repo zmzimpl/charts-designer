@@ -1,22 +1,31 @@
 import React from "react";
 import _ from "lodash";
-import RGL, { WidthProvider } from "react-grid-layout";
-import { MzSafeAny } from "@/models/basic/custom-type";
+import RGL, { WidthProvider, Layout } from "react-grid-layout";
+
+import styles from './GridCanvas.less';
 
 const ReactGridLayout = WidthProvider(RGL);
 
-export class GridCanvas extends React.Component<{}> {
+export interface GridCanvasProps {
+  items: number;
+  onLayoutChange: (layout: Layout[]) => void;
+}
+
+export class GridCanvas extends React.Component<GridCanvasProps> {
     static defaultProps = {
         className: "layout",
         items: 50,
         cols: 12,
         rowHeight: 30,
-        onLayoutChange: function() {},
         // This turns off compaction so you can place items wherever.
         verticalCompact: false
       };
+
+      state: {
+        layout: Layout[]
+      };
     
-      constructor(props: MzSafeAny) {
+      constructor(props: GridCanvasProps) {
         super(props);
     
         const layout = this.generateLayout();
@@ -35,31 +44,32 @@ export class GridCanvas extends React.Component<{}> {
     
       generateLayout() {
         const p = this.props;
-        return _.map(new Array(p.items), function(item, i) {
-          const y = _.result(p, "y") || Math.ceil(Math.random() * 4) + 1;
+        return _.map(new Array(p.items), (item, i) => {
+          const y: number = _.result(p, "y") || Math.ceil(Math.random() * 4) + 1;
           return {
             x: (i * 2) % 12,
             y: Math.floor(i / 6) * y,
             w: 2,
             h: y,
             i: i.toString()
-          };
+          } as Layout;
         });
       }
     
-      onLayoutChange(layout: MzSafeAny) {
+      onLayoutChange(layout: Layout[]) {
         this.props.onLayoutChange(layout);
       }
     
       render() {
         return (
-          <ReactGridLayout
-            layout={this.state.layout}
-            onLayoutChange={this.onLayoutChange}
-            {...this.props}
-          >
-            {this.generateDOM()}
-          </ReactGridLayout>
+          <div className={styles.canvasContainer}>
+            <ReactGridLayout
+              layout={this.state.layout}
+              {...this.props}
+            >
+              {this.generateDOM()}
+            </ReactGridLayout>
+          </div>
         );
       }
 }
