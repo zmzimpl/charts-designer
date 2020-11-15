@@ -1,83 +1,105 @@
 import React from 'react';
-import _ from 'lodash';
-// import RGL, { WidthProvider, Layout } from 'react-grid-layout';
-import { GridStack, GridHTMLElement } from 'gridstack';
+import { fabric } from 'fabric';
 
 import styles from './GridCanvas.less';
 
-// const ReactGridLayout = WidthProvider(RGL);
-// export interface GridCanvasProps {
-//   items: number;
-//   onLayoutChange: (layout: Layout[]) => void;
-// }
-
 export class GridCanvas extends React.Component {
-  
-  // static defaultProps = {
-  //   className: 'layout',
-  //   items: 10,
-  //   cols: 12,
-  //   rowHeight: 30,
-  //   resizeHandles: ['s', 'w', 'e', 'n', 'sw', 'nw', 'se', 'ne'],
-  //   // This turns off compaction so you can place items wherever.
-  //   verticalCompact: false,
-  //   preventCollision: true
-  // };
-  constructor(props) {
-    super(props);
-    this.state = {
-      gridster: null
+  gridCanvas!: fabric.Canvas;
+
+  componentDidMount() {
+    this.initCanvas();
+    this.initListener();
+    this.drawGrid();
+    this.drawWidget();
+
+
+    onresize = () => {
+        this.resizeCanvas();
     }
   }
 
-  componentDidMount() {
-    this.state.gridster = GridStack.init();
-    this.state.gridster.addWidget({width: 2, content: 'item 1'});
+  initCanvas() {
+    const container: HTMLDivElement = document.getElementById('grid-container') as HTMLDivElement;
+    const canvas = new fabric.Canvas('grid-canvas', {
+        selection: false,
+        height: container.clientHeight,
+        width: container.clientWidth,
+    });
+    this.gridCanvas = canvas;
   }
 
-  // state: {
-  //   layout: Layout[];
-  // };
+  drawGrid() {
+    const container: HTMLDivElement = document.getElementById('grid-container') as HTMLDivElement;
+    const options = {
+        distance: 10,
+        width: container.clientWidth,
+        height: container.clientHeight,
+        param: {
+          stroke: '#ebebeb',
+          strokeWidth: 1,
+          selectable: false,
+        },
+      };
+      if (options) {
+        const gridLen = options.width / options.distance;
+  
+        for (var i = 0; i < gridLen; i++) {
+          const distance = i * options.distance,
+            horizontal = new fabric.Line([distance, 0, distance, options.width], options.param),
+            vertical = new fabric.Line([0, distance, options.width, distance], options.param);
+          this.gridCanvas.add(horizontal);
+          this.gridCanvas.add(vertical);
+          if (i % 5 === 0) {
+            horizontal.set({ stroke: '#cccccc' });
+            vertical.set({ stroke: '#cccccc' });
+          }
+        }
+      }
+  }
 
-  // constructor(props: GridCanvasProps) {
-  //   super(props);
+  drawWidget() {
+    // this.gridCanvas.add(new fabric.Rect({
+    //     left: 100,
+    //     top: 100,
+    //     width: 50,
+    //     height: 50,
+    //     fill: '#faa',
+    //     originX: 'left',
+    //     originY: 'top',
+    //     centeredRotation: true
+    // }));
+    this.gridCanvas.add(new fabric.Circle({
+        left: 300,
+        top: 300,
+        radius: 50,
+        fill: '#9f9',
+        originX: 'left',
+        originY: 'top',
+        centeredRotation: true
+    }));
+  }
 
-  //   const layout = this.generateLayout();
-  //   this.state = { layout };
-  // }
+  initListener() {
+    this.gridCanvas.on('object:moving', (options) => {
+        if (options?.target) {
+            options.target.set({
+                left: Math.round((options.target.left || 0) / 10) * 10,
+                top: Math.round((options.target.top || 0) / 10) * 10
+            });
+        }
+    });
+  }
 
-  // generateDOM() {
-  //   return _.map(_.range(this.props.items), (i) => {
-  //     return (
-  //       <div key={i}>
-  //         <span className="text">{i}</span>
-  //       </div>
-  //     );
-  //   });
-  // }
-
-  // generateLayout() {
-  //   const p = this.props;
-  //   return _.map(new Array(p.items), (item, i) => {
-  //     const y: number = _.result(p, 'y') || Math.ceil(Math.random() * 4) + 1;
-  //     return {
-  //       x: (i * 2) % 12,
-  //       y: Math.floor(i / 6) * y,
-  //       w: 2,
-  //       h: y,
-  //       i: i.toString(),
-  //     } as Layout;
-  //   });
-  // }
-
-  // onLayoutChange(layout: Layout[]) {
-  //   this.props.onLayoutChange(layout);
-  // }
+  resizeCanvas() {
+      setTimeout(() => {
+        //   this.drawGrid();
+      }, 66);
+  }
 
   render() {
     return (
-      <div className={styles.canvasContainer}>
-        <div className="grid-stack"></div>
+      <div className={styles.canvasContainer} id="grid-container">
+        <canvas id="grid-canvas" className={styles.canvasWrapper}></canvas>
       </div>
     );
   }
