@@ -6,8 +6,13 @@ import { DesignTopics } from '@/core/pubsub/Topics';
 import {  DoubleLeftOutlined } from '@ant-design/icons';
 import GridCanvas from '../../grid-canvas/GridCanvas';
 import styles from './DesignBoard.less';
+import { WidgetGeneralOptions, WidgetGeneralMap } from '@/models/report/insight-widget';
 
 class DesignBoard extends React.Component {
+
+  widgetGeneralOptions = WidgetGeneralOptions;
+
+  widgetGeneralMap = WidgetGeneralMap;
 
   constructor(props: any) {
     super(props);
@@ -57,7 +62,11 @@ class DesignBoard extends React.Component {
         Choose a {this.state.widget.name} 
         <DoubleLeftOutlined className={`${styles.mzDesignBoardMenu  } pointer`} onClick={this.closeDrawer} />
       </div>
-      )
+     );
+     this.widgetGeneralOptions.get(this.state.widget.name)?.forEach(item => {
+       console.log(item);
+       console.log(this.widgetGeneralMap.get(item));
+     });
     return (
       <div className={styles.mzDesignBoard} style={{ width: this.state.visible ? 'calc(100% - 256px)' : '100%' }}>
         <div className={styles.mzDesignBoardToolbar}>Toolbar</div>

@@ -15,22 +15,22 @@ export interface Widget {
 
 export const WidgetType = [
   {
-    type: 'chart',
+    type: 'Chart',
     name: 'Chart',
     icon: <AreaChartOutlined />
   },
   {
-    type: 'unit',
+    type: 'Unit',
     name: 'Unit',
     icon: <TagsOutlined />
   },
   {
-    type: 'shape',
+    type: 'Shape',
     name: 'Shape',
     icon: <BorderOutlined />
   },
   {
-    type: 'template',
+    type: 'Template',
     name: 'Template',
     icon: <BlockOutlined />
   }

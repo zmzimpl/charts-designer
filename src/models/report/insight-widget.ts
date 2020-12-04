@@ -32,9 +32,10 @@ export enum WidgetType {
     /** 散点图 */
     Sactter = 'Scatter',
     /** 形状图 */
-    Shape = 'Shape',
+    Rectangle = 'Rectangle',
     /** 无须绑定数据的部件 （文字，标题，容器，图片，视频，音乐） */
-    Unit = 'Unit',
+    Image = 'Image',
+    Text = 'Text',
 }
 
 export enum WidgetSubType {
@@ -63,4 +64,48 @@ export enum WidgetSubType {
 
     // 仪表盘（进度图）
     Gauge = 'Gauge',
+
+    // Unit
+    Image = 'Image',
+    Text = 'Text',
+
+    // TODO: 待补充
 }
+
+export interface WidgetConfig {
+
+}
+
+export interface WidgetPreviewOption {
+    title: string;
+    type: WidgetSubType;
+    image: string;
+}
+
+export const WidgetGeneralOptions: Map<string, WidgetType[]> = new Map<string, WidgetType[]>()
+.set('Chart', [WidgetType.Bar, WidgetType.HorizontalBar, WidgetType.Pie, WidgetType.Line, WidgetType.Area, WidgetType.Combination, WidgetType.Gauge, WidgetType.Sactter])
+.set('Unit', [WidgetType.Image, WidgetType.Text])
+.set('Shape', [WidgetType.Rectangle]);
+
+
+export const BarOptions: WidgetPreviewOption[] = [
+    {
+        title: 'Bar',
+        type: WidgetSubType.Bar,
+        image: ''
+    },
+    {
+        title: 'StackBar',
+        type: WidgetSubType.StackBar,
+        image: ''
+    }
+]
+
+export const WidgetGeneralMap: Map<WidgetType, WidgetPreviewOption[]> = new Map<WidgetType, WidgetPreviewOption[]>()
+.set(WidgetType.Bar, BarOptions)
+.set(WidgetType.Line, [{
+    title: 'Line',
+    type: WidgetSubType.Line,
+    image: ''
+}]);
+
