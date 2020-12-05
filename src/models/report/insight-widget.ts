@@ -17,8 +17,6 @@ export interface InsightWidget {
 export enum WidgetType {
     /** 柱形图 */
     Bar = 'Bar',
-    /** 条形图 */
-    HorizontalBar = 'HorizontalBar',
     /** 折线图 */
     Line = 'Line',
     /** 面积图 */
@@ -83,29 +81,43 @@ export interface WidgetPreviewOption {
 }
 
 export const WidgetGeneralOptions: Map<string, WidgetType[]> = new Map<string, WidgetType[]>()
-.set('Chart', [WidgetType.Bar, WidgetType.HorizontalBar, WidgetType.Pie, WidgetType.Line, WidgetType.Area, WidgetType.Combination, WidgetType.Gauge, WidgetType.Sactter])
-.set('Unit', [WidgetType.Image, WidgetType.Text])
-.set('Shape', [WidgetType.Rectangle]);
+.set('图表', [WidgetType.Bar, WidgetType.Pie, WidgetType.Line, WidgetType.Area, WidgetType.Combination, WidgetType.Gauge, WidgetType.Sactter])
+.set('部件', [WidgetType.Image, WidgetType.Text])
+.set('形状', [WidgetType.Rectangle]);
 
 
 export const BarOptions: WidgetPreviewOption[] = [
     {
-        title: 'Bar',
+        title: '普通柱图',
         type: WidgetSubType.Bar,
-        image: ''
+        image: 'https://echarts.apache.org/next/examples/data/thumb/bar-simple.webp?_v_=1607083425377'
     },
     {
-        title: 'StackBar',
+        title: '堆叠柱图',
         type: WidgetSubType.StackBar,
-        image: ''
+        image: 'https://www.echartsjs.com/ecg-storage/ec_gallery_thumbnail/x2sKgOz9LA.png?v=1597885103771'
+    },
+    {
+        title: '条形图',
+        type: WidgetSubType.HorizontalBar,
+        image: 'https://echarts.apache.org/next/examples/data/thumb/bar-y-category.webp?_v_=1607083425377'
+    },
+    {
+        title: '堆叠条形图',
+        type: WidgetSubType.HorizontalStackBar,
+        image: 'https://echarts.apache.org/next/examples/data/thumb/bar-y-category-stack.webp?_v_=1607083425377'
+    },
+];
+
+export const LineOptions: WidgetPreviewOption[] = [
+    {
+        title: '折线图',
+        type: WidgetSubType.Line,
+        image: 'https://echarts.apache.org/next/examples/data/thumb/line-simple.webp?_v_=1607083425377'
     }
 ]
 
 export const WidgetGeneralMap: Map<WidgetType, WidgetPreviewOption[]> = new Map<WidgetType, WidgetPreviewOption[]>()
 .set(WidgetType.Bar, BarOptions)
-.set(WidgetType.Line, [{
-    title: 'Line',
-    type: WidgetSubType.Line,
-    image: ''
-}]);
+.set(WidgetType.Line, LineOptions);
 

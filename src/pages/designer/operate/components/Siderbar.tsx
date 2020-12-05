@@ -5,7 +5,7 @@ import { DesignTopics } from '@/core/pubsub/Topics';
 import { MzSafeAny } from '@/models/basic/custom-type';
 import styles from './Siderbar.less';
 
-export const ComponentType = ['chart', 'unit', 'shape', 'template'];
+export const ComponentType = ['图表', '部件', '形状', '模板'];
 
 export interface Widget {
   type: string;
@@ -16,22 +16,22 @@ export interface Widget {
 export const WidgetType = [
   {
     type: 'Chart',
-    name: 'Chart',
+    name: '图表',
     icon: <AreaChartOutlined />
   },
   {
     type: 'Unit',
-    name: 'Unit',
+    name: '部件',
     icon: <TagsOutlined />
   },
   {
     type: 'Shape',
-    name: 'Shape',
+    name: '形状',
     icon: <BorderOutlined />
   },
   {
     type: 'Template',
-    name: 'Template',
+    name: '模板',
     icon: <BlockOutlined />
   }
 ]
