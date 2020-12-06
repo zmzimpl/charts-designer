@@ -51,13 +51,13 @@ export class PanelOperate extends React.Component {
                 optionType="button"
               >
                 <Radio.Button value="Global" >
-                  <GoldOutlined title="Global Setting" /> { currentSetting === 'Global' ? 'Global Setting' : '' }
+                  <GoldOutlined title="全局配置" /> { currentSetting === 'Global' ? '全局配置' : '' }
                 </Radio.Button>
                 <Radio.Button value="Data">
-                  <DatabaseOutlined title="Data Binding" /> { currentSetting === 'Data' ? 'Data Binding' : '' }
+                  <DatabaseOutlined title="数据绑定" /> { currentSetting === 'Data' ? '数据绑定' : '' }
                 </Radio.Button>
                 <Radio.Button value="Item">
-                  <SettingOutlined title="Item Setting" /> { currentSetting === 'Item' ? 'Item Setting' : '' }
+                  <SettingOutlined title="属性设置" /> { currentSetting === 'Item' ? '属性设置' : '' }
                 </Radio.Button>
               </Radio.Group>
             </div>

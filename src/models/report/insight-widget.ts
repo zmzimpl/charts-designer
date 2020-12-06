@@ -117,7 +117,7 @@ export const LineOptions: WidgetPreviewOption[] = [
     }
 ]
 
-export const WidgetGeneralMap: Map<WidgetType, WidgetPreviewOption[]> = new Map<WidgetType, WidgetPreviewOption[]>()
+export const WidgetOptionMap: Map<WidgetType, WidgetPreviewOption[]> = new Map<WidgetType, WidgetPreviewOption[]>()
 .set(WidgetType.Bar, BarOptions)
 .set(WidgetType.Line, LineOptions);
 

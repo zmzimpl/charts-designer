@@ -5,15 +5,15 @@ import { PubSub } from '@/core/pubsub/pubsub';
 import { DesignTopics } from '@/core/pubsub/Topics';
 import {  DoubleLeftOutlined } from '@ant-design/icons';
 import GridCanvas from '../../grid-canvas/GridCanvas';
-import { WidgetGeneralOptions, WidgetGeneralMap } from '@/models/report/insight-widget';
+import { WidgetGeneralOptions, WidgetOptionMap, WidgetType } from '@/models/report/insight-widget';
 import styles from './DesignBoard.less';
 
 const { Panel } = Collapse;
 class DesignBoard extends React.Component {
 
-  widgetGeneralOptions = WidgetGeneralOptions;
+  widgetGeneralOptions: Map<string, WidgetType[]> = WidgetGeneralOptions;
 
-  widgetGeneralMap = WidgetGeneralMap;
+  widgetGeneralMap = WidgetOptionMap;
 
   drawerBodyStyle = {
     padding: '0px'
@@ -29,7 +29,8 @@ class DesignBoard extends React.Component {
       if (!this.state.visible) {
         this.setState({
           visible: true,
-          widget: data.widget
+          widget: data.widget,
+          defaultActiveKey: this.widgetGeneralOptions.get(data.widget.name)
         })
       } else if (data.widget.type === this.state.widget.type) {
           this.setState({ visible: false});
@@ -50,7 +51,8 @@ class DesignBoard extends React.Component {
     widget: {
       type: 'chart',
       name: 'Chart'
-    }
+    },
+    defaultActiveKey: this.widgetGeneralOptions.get('图表')
   };
 
   showDrawer = () => {
@@ -76,7 +78,8 @@ class DesignBoard extends React.Component {
 
         const widgetItems = this.widgetGeneralMap.get(item)?.map(widget => {
           return (
-            <div className={styles.widgetItem} key={widget.title}>
+            <div className={styles.widgetItem} key={widget.title} draggable={true} >
+              <div className={styles.widgetItemOverlay}></div>
               <img src={widget.image} className={styles.widgetItemImg} alt={widget.title} />
               <div className={styles.widgetItemTitle}>
                 { widget.title }
@@ -84,16 +87,15 @@ class DesignBoard extends React.Component {
             </div>
           )
         });
-
         return (
-          <Panel header={item} key={item}  className="site-collapse-custom-panel">
+          <Panel header={item} key={item}  >
             <div className={styles.widgetItemsBox}>
               {widgetItems}
             </div>
           </Panel>
         )
      });
-     console.log(this.widgetGeneralOptions.get(this.state.widget.name));
+
     return (
       <div className={styles.mzDesignBoard} style={{ width: this.state.visible ? 'calc(100% - 256px)' : '100%' }}>
         <div className={styles.mzDesignBoardToolbar}>Toolbar</div>
@@ -113,10 +115,9 @@ class DesignBoard extends React.Component {
         >
         <Collapse
           bordered={false}
-          defaultActiveKey={this.widgetGeneralOptions.get(this.state.widget.name)}
+          defaultActiveKey={this.state.defaultActiveKey}
           expandIconPosition="right"
           ghost={true}
-          className="site-collapse-custom-collapse"
         >      
           { widgetBlocks }
         </Collapse>

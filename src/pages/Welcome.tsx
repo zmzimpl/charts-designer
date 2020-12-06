@@ -14,16 +14,7 @@ const CodePreview: React.FC<{}> = ({ children }) => (
 export default (): React.ReactNode => (
   <PageContainer>
     <Card>
-      <Alert
-        message="更快更强的重型组件，已经发布。"
-        type="success"
-        showIcon
-        banner
-        style={{
-          margin: -12,
-          marginBottom: 24,
-        }}
-      />
+
     </Card>
   </PageContainer>
 );
