@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { Drawer, Collapse } from 'antd';
+import { Drawer, Collapse, Button } from 'antd';
 import { PubSub } from '@/core/pubsub/pubsub';
+import { UndoRedoUtil } from '@/core/undo-redo/undo-redo';
 import { DesignTopics } from '@/core/pubsub/Topics';
-import {  DoubleLeftOutlined } from '@ant-design/icons';
+import {  DoubleLeftOutlined, UndoOutlined, RedoOutlined } from '@ant-design/icons';
 import GridCanvas from '../../grid-canvas/GridCanvas';
 import { WidgetGeneralOptions, WidgetOptionMap, WidgetType } from '@/models/report/insight-widget';
 import styles from './DesignBoard.less';
@@ -98,7 +99,14 @@ class DesignBoard extends React.Component {
 
     return (
       <div className={styles.mzDesignBoard} style={{ width: this.state.visible ? 'calc(100% - 256px)' : '100%' }}>
-        <div className={styles.mzDesignBoardToolbar}>Toolbar</div>
+        <div className={styles.mzDesignBoardToolbar}>
+        <Button type="link" onClick={(e) => UndoRedoUtil.undo()}>
+          <UndoOutlined /> 撤销
+        </Button>
+        <Button type="link" onClick={(e) => UndoRedoUtil.redo()}>
+          <RedoOutlined /> 重做
+        </Button>
+        </div>
         <div className={styles.mzDesignBoardArea}>
           <GridCanvas />
         </div>
