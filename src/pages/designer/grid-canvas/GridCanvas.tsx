@@ -108,7 +108,7 @@ export class GridCanvas extends React.Component {
   render() {
     return (
       <div className={styles.canvasContainer} id="grid-container">
-        <div className="grid-stack"></div>
+        <div className={styles.gridStackWrapper + ' grid-stack'}></div>
       </div>
     );
   }
