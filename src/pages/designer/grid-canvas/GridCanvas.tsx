@@ -32,9 +32,13 @@ export class GridCanvas extends React.Component {
     this.grid = GridStack.init({
       resizable: {
         handles: 'e, se, s, sw, w'
-      }
+      },
+      column: 84,
+      float: true,
+      // minRow: 32,
+      // maxRow: 32
     });
-    this.grid.addWidget({x: 2, width: 10, height: 10 , content: 'item 1'});
+    this.grid.addWidget({x: 2, width: 2, height: 2 , content: 'item 1'});
   }
 
   drawGrid() {
