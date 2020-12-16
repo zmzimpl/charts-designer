@@ -1,6 +1,7 @@
 import React from 'react';
 // import { fabric } from 'fabric';
 import 'gridstack/dist/gridstack.min.css';
+import 'gridstack/dist/gridstack-extra.min.css';
 import {GridStack} from 'gridstack';
 // THEN to get HTML5 drag&drop
 // OR to get legacy jquery-ui drag&drop
@@ -35,10 +36,10 @@ export class GridCanvas extends React.Component {
       },
       column: 84,
       float: true,
-      // minRow: 32,
-      // maxRow: 32
+      minRow: 32,
+      maxRow: 32
     });
-    this.grid.addWidget({x: 2, width: 2, height: 2 , content: 'item 1'});
+    this.grid.addWidget({x: 2, width: 5, height: 5 , content: 'item 1'});
   }
 
   drawGrid() {
