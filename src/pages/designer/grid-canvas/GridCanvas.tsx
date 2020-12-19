@@ -39,8 +39,8 @@ export class GridCanvas extends React.Component {
       minWidth: 1,
       float: true,
       minRow: 32,
-      row:32,
-      maxRow: 32
+      row:48,
+      maxRow: 48
     });
     const item = {x: 2, y: 0, width: 12, height: 8 , content: 'item 1'};
     this.grid.addWidget(item);
