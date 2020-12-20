@@ -36,14 +36,14 @@ export class GridCanvas extends React.Component {
       },
       column: 84,
       cellHeightUnit: 'px',
-      minWidth: 1,
+      minWidth: 2,
       float: true,
-      minRow: 32,
-      row:48,
-      maxRow: 48
+      minRow: 42,
     });
     const item = {x: 2, y: 0, width: 12, height: 8 , content: 'item 1'};
+    const item2 = {x: 14, y: 0, width: 12, height: 8 , content: 'item 2'};
     this.grid.addWidget(item);
+    this.grid.addWidget(item2);
   }
 
   drawGrid() {
