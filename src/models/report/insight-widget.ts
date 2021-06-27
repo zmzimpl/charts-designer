@@ -95,7 +95,7 @@ export const BarOptions: WidgetPreviewOption[] = [
     {
         title: '堆叠柱图',
         type: WidgetSubType.StackBar,
-        image: 'https://www.echartsjs.com/ecg-storage/ec_gallery_thumbnail/x2sKgOz9LA.png?v=1597885103771'
+        image: 'https://cdn.jsdelivr.net/gh/apache/echarts-website@asf-site/examples/data/thumb/bar-brush.webp?_v_=1624430965835'
     },
     {
         title: '条形图',
